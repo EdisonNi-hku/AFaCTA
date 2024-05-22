@@ -17,7 +17,7 @@ os.environ["OPENAI_API_KEY"] = "sk-xxx"
 SYSTEM_PROMPT = """You are an AI assistant who helps fact-checkers to identify fact-like information in statements.
 """
 
-PROMPT_PART_2_0905 = """Statements {origination} are usually based on facts to draw reasonable conclusions.
+PROMPT_PART_2_0905 = """Statements in political speech are usually based on facts to draw reasonable conclusions.
 
 Categories of fact:
 C1. Mentioning somebody (including the speaker) did or is doing something specific and objective.
@@ -26,11 +26,12 @@ C3. Claiming a correlation or causation.
 C4. Assertion of existing laws or rules of operation.
 C5. Pledging a specific future plan or making specific predictions about future.
 
-Please first analyze the objective and subjective information that the following <statement> ({origination}) covers.
+Please first analyze the objective and subjective information that the following <statement> (from a political speech) covers.
 Then extract the fact that the <statement> is based on.
 Then carefully reason about if the extracted fact is objectively verifiable. 
 Finally answer if the fact falls into the above categories (C1 to C5) or not (C0).
 
+Context for <statement> to help you understand it better: "{context}"
 <statement>: "{sentence}"
 
 Format your answer in JSON with the following keys in order: 
@@ -43,26 +44,30 @@ Format your answer in JSON with the following keys in order:
 }}
 """
 
-PROMPT_PART_1_VERIFIABILITY = """Does the following <sentence> ({origination}) contain any objective information? 
+PROMPT_PART_1_VERIFIABILITY = """Given the <context> of the following <sentence> from a political speech, does it contain any objective information? 
 
+<context>: "...{context}..."
 <sentence>: "{sentence}" 
 
 Answer with Yes or No only.
 """
 
-PROMPT_OBJECTIVE = """Concisely argue that the following <sentence> {origination} does contain some objective information.
+PROMPT_OBJECTIVE = """Concisely argue that the following <sentence> from a political speech does contain some objective information.
 
+Context of <sentence> in the speech: "...{context}..."
 <sentence>: "{sentence}"
 """
 
 
-PROMPT_SUBJECTIVE = """Concisely argue that the following <sentence> {origination} does not contain any objective information.
+PROMPT_SUBJECTIVE = """Concisely argue that the following <sentence> from a political speech does not contain any objective information.
 
+Context of <sentence> in the speech: "...{context}..."
 <sentence>: "{sentence}"
 """
 
-JUDGE_PROMPT = """Two AI assistants are debating about whether the following <sentence> ({origination}) contain any objectively verifiable information.
+JUDGE_PROMPT = """Two AI assistants are debating about whether the following <sentence> (from a political speech) contains any objectively verifiable information.
 
+Context of <sentence> in the speech: "...{context}..."
 <sentence>: "{sentence}"
 
 Assistant A's View: "{assistant_a}"

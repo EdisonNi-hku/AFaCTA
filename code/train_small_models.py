@@ -218,9 +218,11 @@ def main(args):
         output_dir=args.model_save_dir,
         num_train_epochs=args.epoch,
         per_device_train_batch_size=args.batch_size,
+        gradient_accumulation_steps=args.gas,
         evaluation_strategy="no",
         save_strategy='no',
         load_best_model_at_end=False,
+        report_to="none",
     )
 
     # Define the Trainer
@@ -232,7 +234,7 @@ def main(args):
 
     # Train the model
     trainer.train()
-    # model.save_pretrained(args.model_save_dir)
+    model.save_pretrained(args.model_save_dir)
 
     # Calculate accuracy on testset1 and testset2
 
@@ -254,6 +256,7 @@ if __name__ == '__main__':
     parser.add_argument("--cache_dir", type=str, default="/home/jini/shares/transformer_models")
     parser.add_argument("--model_save_dir", type=str, default="")
     parser.add_argument("--batch_size", type=int, default=64)
+    parser.add_argument("--gas", type=int, default=1)
     parser.add_argument("--epoch", type=int, default=5)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--no_context", action='store_true', default=False)
