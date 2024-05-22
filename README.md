@@ -1,5 +1,6 @@
 # AFaCTA
 An automatic annotation framework for Factual Claim Detection, focusing on verifiability and calibrating with self-consistency ensemble.
+One claim detector fine-tuned by full PoliClaim_gold and PoliClaim_silver can be found at https://huggingface.co/JingweiNi/roberta-base-afacta
 
 ## How to use
 ### How to annotate a political speech?
